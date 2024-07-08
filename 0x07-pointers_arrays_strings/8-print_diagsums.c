@@ -23,22 +23,3 @@ void print_diagsums(int *a, int size)
 	}
 	printf("%d, %d\n", sum1, sum2);
 }
-
-
-_Putchar.c
-
-#include "main.h"
-#include <unistd.h>
-
-/**
- * _putchar - writes the character c to stdout
- * @c: The character to print
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
- */
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-
