@@ -1,9 +1,9 @@
 #include "main.h"
 #include <stdio.h>
+
 /**
- * main - Entry point
- *
- * Return: Always 0 (Success)
+ * _puts - Prints a string followed by a newline to stdout
+ * @str: The string to print
  */
 void _puts(char *str)
 {
@@ -15,3 +15,16 @@ i++;
 }
 _putchar('\n');
 }
+
+/**
+ * main - Entry point
+ *
+ * Return: Always 0 (Success)
+ */
+int main(void)
+{
+char my_str[] = "Hello, World!";
+_puts(my_str);
+return (0);
+}
+
