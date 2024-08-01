@@ -10,9 +10,7 @@
 int main(void)
 {
 char message[] = "Hello, Holberton!";
-
 printf("%s\n", message);
-
 return (0);
 }
 
