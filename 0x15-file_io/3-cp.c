@@ -37,31 +37,41 @@ int main(int argc, char *argv[])
 		if (wrote == -1)
 			check_IO_stat(-1, -1, argv[2], 'W');
 	}
+	close_src = close(src);
+	check_IO_stat(close_src, src, src, NULL, 'C');
+	close_dest = close(dest);
+	check_IO_stat(close_dest, dest, NULL, 'C');
+	return (0);
+}
+/**
+ * check_IO_stat - checks if a file can be opened, written to, or closed
+ * @stat: the status or file descriptor returned by the open, write, or close function
+ * @fd: the file descriptor
+ * @filename: the name of the file
+ * @mode: the operation mode ('O' for open, 'W' for write, 'C' for close)
+ *
+ * Description: This function checks the status of file operations like opening,
+ *              writing to, or closing a file. It prints an appropriate error
+ *              message and exits the program if an error is encountered.
+ *
+ * Return: void
+ */
+void check_IO_stat(int stat, int fd, char *filename, char mode)
+{
+if (mode == 'C' && stat == -1)
+{
+dprintf(STDERR_FILENO, "Error: can not close file descriptor %d\n", fd);
+exit(100);
+}
+else if (mode == 'O' && stat == -1)
+{
+dprintf(STDERR_FILENO, "Error: can't read from file %s\n", filename);
+exit(98);
+}
+else if (mode == 'W' && stat == -1)
+{
+dprintf(STDERR_FILENO, "Error: can not write to %s\n", filename);
+exit(99);
+}
+}
 
-	/**
-	 * check_IO_stat - funct checks if a file can be opened or closed
-	 * @stat: file descriptor of file to be opened
-	 * @filename: name of file
-	 * @mode: closing or opening
-	 * @fd: file descriptor
-	 *
-	 * Return: void
-	 */
-	void check_IO_stat(int stat, int fd, char *filename, char mode)
-	{
-		if (mode == 'C' && stat == -1)
-		{
-			dprintf(STDERR_FILENO, "Error: can not read from file %s\n", fd);
-			exit(100);
-		}
-		else if (mode == 'O' && stat == -1)
-		{
-			dprintf(STDERR_FILENO, "Eroor: can't read from file %s\n", filename);
-			exit(98);
-		}
-		else if (mode == 'W' && stat == -1)
-		{
-			dprintf(STDERR_FILENO, "Error: can't write to %s\n", filname);
-			exit(99);
-		}
-	}
